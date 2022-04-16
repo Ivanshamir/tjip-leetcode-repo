@@ -54,34 +54,34 @@ class Solution:
         return -1
             
         
-
-
+#Using hash
 class Solution:
-    preCalculateHash = po = {}
-    base = 26
+    preCalculateHash = po = defaultdict(int)
+    base = 29
     MOD = 1000000007
     
     def preProcess(self, haystack) -> None:
-        self.preCalculateHash[0] = haystack[0]
+        self.preCalculateHash[0] = ord(haystack[0])
         for i in range(1, len(haystack)):
-            self.preCalculateHash[i] = (self.preCalculateHash[i-1] * self.base) + haystack[i]
+            self.preCalculateHash[i] = (self.preCalculateHash[i-1] * self.base) + ord(haystack[i])
             if self.preCalculateHash[i] >= self.MOD:
                 self.preCalculateHash[i] %= self.MOD
 
             self.po[i] = (self.po[i-1] * self.base) % self.MOD
         
     
-    def getRangeHash(self, left, right, haystack):
+    def getRangeHash(self, left, right):
         x1 = self.preCalculateHash[right]
         x2 = 0 if left == 0 else (self.preCalculateHash[left-1] * self.po[right-left+1]) % self.MOD
-        print(x1, x2)
-        return (int(x1) - int(x2) + self.MOD) % self.MOD
+        return (x1 - x2 + self.MOD) % self.MOD
+    
     
     def generateHash(self, string):
         val = 0
         for st in range(len(string)):
-            val = (val * self.base) + st
+            val = (val * self.base) + ord(string[st])
             val %= self.MOD
+            
         return val
             
     
@@ -93,10 +93,9 @@ class Solution:
         needleLen = len(needle)
         
         self.preProcess(haystack)
-        print(self.preCalculateHash)
         needleHash = self.generateHash(needle)
         
         for i in range(haystackLen-needleLen+1):
-            if self.getRangeHash(i, i+needleLen-1, haystack) == needleHash:
+            if self.getRangeHash(i, i+needleLen-1) == needleHash:
                 return i
         return -1
