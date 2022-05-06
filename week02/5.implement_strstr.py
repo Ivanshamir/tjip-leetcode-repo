@@ -56,12 +56,14 @@ class Solution:
         
 #Using hash
 class Solution:
-    preCalculateHash = po = defaultdict(int)
+    preCalculateHash = defaultdict(int)
+    po = defaultdict(int)
     base = 29
     MOD = 1000000007
     
     def preProcess(self, haystack) -> None:
         self.preCalculateHash[0] = ord(haystack[0])
+        self.po[0] = 1
         for i in range(1, len(haystack)):
             self.preCalculateHash[i] = (self.preCalculateHash[i-1] * self.base) + ord(haystack[i])
             if self.preCalculateHash[i] >= self.MOD:
