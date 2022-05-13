@@ -1,4 +1,4 @@
-# O(N) time | O(N) space complexity
+# O(N) time | space O(26N),26 for each node.There can be at most N nodes where N = sum of all chars 
 """
 Details: Trie, which is also known as “Prefix Trees”, is a tree-like data structure which proves to be quite efficient for solving problems related to strings. It provides fast retrieval, and is mostly used for searching words in a dictionary, providing auto suggestions in a search engine, and even for IP routing.
 """
